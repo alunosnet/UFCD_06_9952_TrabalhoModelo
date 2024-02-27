@@ -1,0 +1,27 @@
+VetOnline
+----------
+Publica
+    Registar utilizador
+    Login/Logout
+    Especialidades
+    Estatisticas dos animais
+
+Privada
+    Cliente
+        Pedir consulta
+        Registo animais (fotos)
+        Histórico das consultas
+
+    Admin
+        Consultas - mudar o estado (Confirmar/Cancelar/Realizada)
+        Consultas do dia
+        Clientes - gerir
+        Animais - gerir
+        Consultas dos dados do web site
+        Enviar emails
+
+Base de dados
+--------------
+Utilizadores(id,nome,morada,cp,data_nasc,email,password_hash,sal,perfil,token_recuperar,data_recuperar)
+Animais(id,nome,especie,raca,idade,data_nasc,peso,genero,id_utilizador)
+Consultas(id,id_animal,id_utilizador,data_marcacao,data_realizacao,estado,resumo)
