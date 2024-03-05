@@ -30,7 +30,7 @@ basedados.executar_sql(ligacao_bd,tabela_utilizadores)
 #############################################################
 sql="SELECT count(*) as Contar FROM Utilizadores WHERE perfil='admin'"
 dados=basedados.consultar_sql(ligacao_bd,sql)
-print(dados[0]["contar"])
+
 if not dados or len(dados)<1 or dados[0]["contar"]==0:
     email="admin@gmail.com"
     nome="admin"
@@ -55,11 +55,11 @@ tabela_animais="""
         idade INTEGER,
         data_nasc NUMERIC,
         peso NUMERIC,
-        genero TEXT CHECK (genero in ["f","F","m","M"]),
+        genero TEXT CHECK (genero in ("f","F","m","M")),
         id_utilizador INTEGER REFERENCES Utilizadores(id)
     )
 """
-basedados.executar_sql(ligacao_bd,sql)
+basedados.executar_sql(ligacao_bd,tabela_animais)
 
 #Consultas(id,id_animal,id_utilizador,data_marcacao,data_realizacao,estado,resumo)
 tabela_consultas=""

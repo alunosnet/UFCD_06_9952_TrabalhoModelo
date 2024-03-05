@@ -44,3 +44,28 @@ def RegistoUtilizador():
             return "Utilizador registado com sucesso!"
         else:
             return render_template("utilizadores/registo.html",site_key=RECAPTCHA_SITE_KEY,mensagem="Tem de provar que não é um robot.")
+
+#Função para listar todos os utilizadores registados na página listar.html da pasta utilizadores
+#Só para admin
+def Listar():
+    pass
+
+#Só para admin
+def Adicionar():
+    pass
+
+#Só para admin
+def Apagar():
+    pass
+
+#Só para admin
+def ApagarConfirmado():
+    pass
+
+#Só para admin
+def Editar():
+    pass
+
+#Só para admin
+def EditarConfirmado():
+    pass

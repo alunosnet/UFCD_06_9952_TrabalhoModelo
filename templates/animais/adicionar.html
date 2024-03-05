@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Registo de animal novo</h1>
+<form action="/Animais/adicionar" method="post" enctype="multipart/form-data">
+    Nome:<input type="text" name="nome" >
+    <br>
+    Especie:<input type="text" name="especie" required>
+    <br>
+    Raça:<input type="text" name="raca">
+    <br>
+    Idade:<input type="number" name="idade" min="0" max="150">
+    <br>
+    Data Nascimento:<input type="date" name="data_nasc">
+    <br>
+    Peso:<input type="number" name="peso" min="0" max="100">
+    <br>
+    Género:
+    <select name="genero">
+        <option value="f">Feminino</option>
+        <option value="m">Masculino</option>
+    </select>
+    <br>
+    Dono:
+    <select name="id_utilizador">
+        {% for utilizador in utilizadores %}
+        <option value="{{ utilizador.id }}">{{ utilizador.nome }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <input type="file" name="fotografia">
+    <br>
+    <input type="submit" value="Registar">
+    <br>
+    {{ mensagem }}
+</form>
+{% endblock %}

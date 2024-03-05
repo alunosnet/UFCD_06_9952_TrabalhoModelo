@@ -21,6 +21,7 @@ def executar_sql(conexao, comando_sql, parametros=None):
             cursor.execute(comando_sql)
         conexao.commit()
         print("Comando SQL executado com sucesso")
+        return cursor.lastrowid
     except sqlite3.Error as e:
         print(f"Erro ao executar o comando SQL: {e}")
 
