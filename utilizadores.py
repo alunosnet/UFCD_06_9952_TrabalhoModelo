@@ -45,6 +45,40 @@ def RegistoUtilizador():
         else:
             return render_template("utilizadores/registo.html",site_key=RECAPTCHA_SITE_KEY,mensagem="Tem de provar que não é um robot.")
 
+def Login():
+    if request.method=="POST":
+        email=request.form.get("email")
+        palavra_passe=request.form.get("password")
+        ligacao_bd=basedados.criar_conexao("vetonline.bd")
+        sql="SELECT password_hash,id,perfil,nome FROM Utilizadores WHERE email=?"
+        parametros=(email,)
+        dados=basedados.consultar_sql(ligacao_bd,sql,parametros)
+        if dados:
+            password_hash=dados[0]["password_hash"]
+            if bcrypt.checkpw(palavra_passe.encode('utf-8'),password_hash):
+                #iniciar sessão
+                session["email"]=email
+                session["id"]=dados[0]["id"]
+                session["perfil"]=dados[0]["perfil"]
+                session["nome"]=dados[0]["nome"]
+                return redirect("/")
+        print("Login falhou")
+        return render_template("index.html",mensagem="Login falhou. Tente novamente.")
+
+def Logout():
+    session.clear()
+    return redirect("/")
+
+def Logado():
+    if "email" in session:
+        return True
+    return False
+
+def Utilizador_E_Admin():
+    if Logado() and session["perfil"]=='admin':
+        return True
+    return False
+
 #Função para listar todos os utilizadores registados na página listar.html da pasta utilizadores
 #Só para admin
 def Listar():

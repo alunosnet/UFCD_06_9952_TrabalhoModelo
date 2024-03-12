@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<script>
+    async function atualizarOpcoes()
+    {
+        let categoria=document.getElementById("id_utilizador").value;
+        let resposta=await fetch("http://127.0.0.1:5000/get_animais?id_utilizador="+categoria);
+        let opcoes=await resposta.json();
+        let select_opcoes=document.getElementById("id_animal");
+        select_opcoes.innerHTML="";
+        for(let i=0;i<opcoes.length;i++)
+        {
+            let novo=document.createElement("option");
+            novo.value=opcoes[i][0];
+            novo.text=opcoes[i][1];
+            select_opcoes.appendChild(novo);
+        }
+    }
+</script>
+
+<h1>Marcar consulta</h1>
+<form action="/Consultas/marcar" method="post" >
+   {% if "perfil" in session and session["perfil"]=='admin' %}
+    Cliente:
+    <select name="id_utilizador" id="id_utilizador" onchange="atualizarOpcoes()">
+        {% for utilizador in utilizadores %}
+        <option value="{{ utilizador.id }}">{{ utilizador.nome }}</option>
+        {% endfor %}
+    </select>
+    {% else %}
+        <input type="hidden" name="id_utilizador" id="id_utilizador" value="{{ session['id'] }}">
+        <script>
+            atualizarOpcoes();
+        </script>
+    {% endif %}
+    <br>
+    Animal:
+    <select name="id_animal" id="id_animal"></select>
+    <br>
+    Data da Consulta:<input type="date" name="data_realizacao" required>
+    <br>
+    Razão:<input type="text" name="resumo" placeholder="Indique a razão da consulta" required>
+    <br>
+    <input type="submit" value="Marcar">
+    <br>
+    {{ mensagem }}
+</form>
+{% endblock %}

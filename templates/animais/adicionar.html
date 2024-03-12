@@ -3,34 +3,56 @@
 
 <h1>Registo de animal novo</h1>
 <form action="/Animais/adicionar" method="post" enctype="multipart/form-data">
-    Nome:<input type="text" name="nome" >
+    <div class="form-group row">
+        <label class="form-label" for="nome">Nome:</label>
+        <input class="form-control" type="text" name="nome" placeholder="Nome do animal">
+    </div>
     <br>
-    Especie:<input type="text" name="especie" required>
+    <div class="form-group row">
+        <label class="form-label" for="especie">Espécie:</label>
+        <input class="form-control" type="text" name="especie" placeholder="Espécie do animal" required>
+    </div>
     <br>
-    Raça:<input type="text" name="raca">
+    <div class="form-group row">
+        <label class="form-label" for="raca">Raça:</label>
+        <input class="form-control" type="text" name="raca" placeholder="Raça do animal">
+    </div>
     <br>
-    Idade:<input type="number" name="idade" min="0" max="150">
+    <div class="form-group row">
+        <label class="form-label" for="idade">Idade:</label>
+        <input class="form-control" type="number" name="idade" min="0" max="150">
+    </div>
     <br>
-    Data Nascimento:<input type="date" name="data_nasc">
+    <div class="form-group row">
+        <label class="form-label" for="data_nasc">Data de Nascimento:</label>
+        <input class="form-control" type="date" name="data_nasc">
+    </div>
     <br>
-    Peso:<input type="number" name="peso" min="0" max="100">
+    <div class="form-group row">
+        <label class="form-label" for="peso">Peso:</label>
+        <input class="form-control" type="number" name="peso" min="0" max="100">
+    </div>
     <br>
-    Género:
-    <select name="genero">
-        <option value="f">Feminino</option>
-        <option value="m">Masculino</option>
-    </select>
+    <div class="form-group row">
+        <label class="form-label" for="genero">Género:</label>
+        <select class="form-select" name="genero">
+            <option value="f">Feminino</option>
+            <option value="m">Masculino</option>
+        </select>
+    </div>
     <br>
-    Dono:
-    <select name="id_utilizador">
-        {% for utilizador in utilizadores %}
-        <option value="{{ utilizador.id }}">{{ utilizador.nome }}</option>
-        {% endfor %}
-    </select>
+    <div class="form-group row">
+        <label class="form-label" for="id_utilizador">Dono:</label>
+        <select class="form-select" name="id_utilizador">
+            {% for utilizador in utilizadores %}
+            <option value="{{ utilizador.id }}">{{ utilizador.nome }}</option>
+            {% endfor %}
+        </select>
+    </div>
     <br>
-    <input type="file" name="fotografia">
+    <input class="form-control" type="file" name="fotografia">
     <br>
-    <input type="submit" value="Registar">
+    <input class="btn btn-lg btn-danger" type="submit" value="Adicionar">
     <br>
     {{ mensagem }}
 </form>

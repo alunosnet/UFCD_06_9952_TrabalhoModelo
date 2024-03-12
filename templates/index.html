@@ -1,9 +1,32 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<h1>Login?</h1>
+<!--Se utilizador estiver logado esconder-->
+{% if "email" not in session or session["email"]==None %}
+<div class="div_login">
+    <form action="/Login" method="post">
+    <h1>Login</h1>
+    Email:
+    <input class="form-control" type="email" name="email" required>
+    <br>
+    Palavra passe:
+    <input class="form-control" type="password" name="password" required>
+    <br>
+    <input class="btn btn-primary btn-lg" type="submit" value="Login">
+    <br>
+    {% if mensagem!=null %}
+        <label class="alert alert-danger">
+            {{ mensagem }}
+        </label>
+    {% endif %}
+    </form>
+</div>
+{% endif %}
 
-<h1>Consultas do dia</h1>
+{% if "email" in session and session["perfil"]=='admin' %}
+    <h1>Consultas do dia</h1>
+
+{% endif %}
 
 
 {% endblock %}

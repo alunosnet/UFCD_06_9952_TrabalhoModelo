@@ -1,19 +1,27 @@
 {% extends "layout.html" %}
 {% block body %}
 
+<link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap5.min.css"/>
+<script type="text/javascript" src="/static/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="/static/js/dataTables.min.js"></script>
+<script type="text/javascript" src="/static/js/dataTables.bootstrap5.min.js"></script>
+
 <h1>Lista de animais</h1>
-<table class="table">
-    <tr>
-        <th>Fotografia</th>
-        <th>Nome</th>
-        <th>Especie</th>
-        <th>Raça</th>
-        <th>Idade</th>
-        <th>Dono</th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
+<table id="tabelaAnimais" class="table display">
+    <thead>
+        <tr>
+            <th>Fotografia</th>
+            <th>Nome</th>
+            <th>Especie</th>
+            <th>Raça</th>
+            <th>Idade</th>
+            <th>Dono</th>
+            <th>Detalhes</th>
+            <th>Apagar</th>
+            <th>Editar</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for registo in registos %}
         <tr>
             <td><img width="200" src="/static/imagens/{{ registo['id'] }}.jpg"></td>
@@ -37,6 +45,20 @@
             </td>
         </tr>
     {% endfor %}
+    </tbody>
 </table>
+<script>
+    //evento onload
+    window.onload=function() {
+        new DataTable('#tabelaAnimais',{
+            searching:false,
+            paging: true,
+           // pageLength: 5,
+            language:{
+                url: "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese.json"
+            }
+        });
+    }
+</script>
 
 {% endblock %}

@@ -2,8 +2,6 @@
 import basedados
 from flask import Flask, render_template, request, redirect, session
 
-
-
 #Função para adicionar um animal novo na base de dados
 def Adicionar(app):
     ligacao_bd=basedados.criar_conexao("vetonline.bd")
@@ -35,3 +33,15 @@ def Listar(app):
     ligacao_bd=basedados.criar_conexao("vetonline.bd")
     dados=basedados.consultar_sql(ligacao_bd,"SELECT * FROM Animais")
     return render_template("animais/listar.html",registos=dados)
+
+def Editar():
+    pass
+
+def EditarConfirmado():
+    pass
+
+def Apagar():
+    pass
+
+def ApagarConfirmado():
+    pass

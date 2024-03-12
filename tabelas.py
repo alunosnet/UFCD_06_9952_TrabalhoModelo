@@ -62,4 +62,15 @@ tabela_animais="""
 basedados.executar_sql(ligacao_bd,tabela_animais)
 
 #Consultas(id,id_animal,id_utilizador,data_marcacao,data_realizacao,estado,resumo)
-tabela_consultas=""
+tabela_consultas="""
+    CREATE TABLE IF NOT EXISTS Consultas(
+        id INTEGER PRIMARY KEY,
+        id_animal INTEGER REFERENCES Animais(id),
+        id_utilizador INTEGER REFERENCES Utilizadores(id),
+        data_marcacao NUMERIC,
+        data_realizacao NUMERIC,
+        estado TEXT CHECK (estado in ("Pedida","Confirmada","Cancelada","Realizada")),
+        resumo TEXT
+    )
+"""
+basedados.executar_sql(ligacao_bd,tabela_consultas)

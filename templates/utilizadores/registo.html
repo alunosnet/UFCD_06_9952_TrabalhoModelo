@@ -3,14 +3,23 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <h1>Registo de utilizador novo</h1>
 <form action="/Utilizadores/registo" method="post">
-    Nome:<input type="text" name="nome" required>
+    <div class="form-group row">
+        <label class="form-label" for="nome">Nome:</label>
+        <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome de utilizador" required>
+    </div>
     <br>
-    Email:<input type="email" name="email" required>
+    <div class="form-group row">
+        <label class="form-label" for="email">Email:</label>
+        <input class="form-control" type="email" name="email" required>
+    </div>
     <br>
-    Palavra passe: <input type="password" name="password" required>
+    <div class="form-group row">
+        <label class="form-label" for="password">Palavra passe:</label>
+        <input class="form-control" type="password" name="password" required>
+    </div>
     <br>
     <div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
-    <input type="submit" value="Registar">
+    <input class="btn btn-lg btn-danger" type="submit" value="Registar">
     <br>
     {{ mensagem }}
 </form>
