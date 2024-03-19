@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Editar registo de animal</h1>
+<form action="/Animais/editar_confirmado" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{{ animal['id'] }}">
+    <div class="form-group row">
+        <label class="form-label" for="nome">Nome:</label>
+        <input value="{{ animal['nome'] }}" class="form-control" type="text" name="nome" placeholder="Nome do animal">
+    </div>
+    <br>
+    <div class="form-group row">
+        <label class="form-label" for="especie">Espécie:</label>
+        <input value="{{ animal['especie'] }}" class="form-control" type="text" name="especie" placeholder="Espécie do animal" required>
+    </div>
+    <br>
+    <div class="form-group row">
+        <label class="form-label" for="raca">Raça:</label>
+        <input value="{{ animal['raca'] }}" class="form-control" type="text" name="raca" placeholder="Raça do animal">
+    </div>
+    <br>
+    <div class="form-group row">
+        <label class="form-label" for="idade">Idade:</label>
+        <input value="{{ animal['idade'] }}" class="form-control" type="number" name="idade" min="0" max="150">
+    </div>
+    <br>
+    <div class="form-group row">
+        <label class="form-label" for="data_nasc">Data de Nascimento:</label>
+        <input value="{{ animal['data_nasc'] }}" class="form-control" type="date" name="data_nasc">
+    </div>
+    <br>
+    <div class="form-group row">
+        <label class="form-label" for="peso">Peso:</label>
+        <input value="{{ animal['peso'] }}" class="form-control" type="number" name="peso" min="0" max="100">
+    </div>
+    <br>
+    <div class="form-group row">
+        <label class="form-label" for="genero">Género:</label>
+        <select class="form-select" name="genero">
+            <option value="f" {% if animal['genero'] == 'f' %}selected{% endif %}>Feminino</option>
+            <option value="m" {% if animal['genero'] == 'm' %}selected{% endif %}>Masculino</option>
+        </select>
+    </div>
+    <br>
+    <img src="/static/imagens/{{ animal['id'] }}.jpg" width="150">
+    <br>
+    <input class="form-control" type="file" name="fotografia">
+    <br>
+    <input class="btn btn-lg btn-danger" type="submit" value="Atualizar">
+    <br>
+    {{ mensagem }}
+</form>
+{% endblock %}

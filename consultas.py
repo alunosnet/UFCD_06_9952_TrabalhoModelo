@@ -31,3 +31,11 @@ def marcar(estado):
         parametros=(id_utilizador,id_animal,data_consulta,data_marcacao,razao,estado)
         basedados.executar_sql(ligacao_bd,sql,parametros)
         return redirect("/Consultas/listar")
+    
+
+def alterarestado(id,estado):
+    ligacao_bd=basedados.criar_conexao("vetonline.bd")
+    sql="UPDATE Consultas SET estado=? WHERE id=?"
+    dados=(estado,id)
+    basedados.executar_sql(ligacao_bd,sql,dados)
+    return redirect("/Consultas/listar")

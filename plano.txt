@@ -25,3 +25,7 @@ Base de dados
 Utilizadores(id,nome,morada,cp,data_nasc,email,password_hash,sal,perfil,token_recuperar,data_recuperar)
 Animais(id,nome,especie,raca,idade,data_nasc,peso,genero,id_utilizador)
 Consultas(id,id_animal,id_utilizador,data_marcacao,data_realizacao,estado,resumo)
+
+
+Perfil => mostrar os animais e as consultas
+Index => mostrar as consultas do dia

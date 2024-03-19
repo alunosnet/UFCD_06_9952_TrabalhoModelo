@@ -22,12 +22,14 @@
 <h1>Marcar consulta</h1>
 <form action="/Consultas/marcar" method="post" >
    {% if "perfil" in session and session["perfil"]=='admin' %}
-    Cliente:
-    <select name="id_utilizador" id="id_utilizador" onchange="atualizarOpcoes()">
-        {% for utilizador in utilizadores %}
-        <option value="{{ utilizador.id }}">{{ utilizador.nome }}</option>
-        {% endfor %}
-    </select>
+    <div class="form-group row">
+            <label class="form-label" for="cliente">Cliente:</label>
+            <select  class="form-select" name="id_utilizador" id="id_utilizador" onchange="atualizarOpcoes()">
+                {% for utilizador in utilizadores %}
+                <option value="{{ utilizador.id }}">{{ utilizador.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
     {% else %}
         <input type="hidden" name="id_utilizador" id="id_utilizador" value="{{ session['id'] }}">
         <script>
@@ -35,14 +37,22 @@
         </script>
     {% endif %}
     <br>
-    Animal:
-    <select name="id_animal" id="id_animal"></select>
+    <div class="form-group row">
+        <label class="form-label" for="id_animal">Animal:</label>
+        <select  class="form-select" name="id_animal" id="id_animal"></select>
+    </div>
     <br>
-    Data da Consulta:<input type="date" name="data_realizacao" required>
+    <div class="form-group row">
+        <label class="form-label" for="data_realizacao">Data da Consulta:</label>
+        <input class="form-control" type="date" name="data_realizacao" required>
+    </div>
     <br>
-    Razão:<input type="text" name="resumo" placeholder="Indique a razão da consulta" required>
+    <div class="form-group row">
+        <label class="form-label" for="resumo">Razão:</label>
+        <input class="form-control" type="text" name="resumo" placeholder="Indique a razão da consulta" required>
+    </div>
     <br>
-    <input type="submit" value="Marcar">
+    <input class="btn btn-lg btn-danger" type="submit" value="Marcar">
     <br>
     {{ mensagem }}
 </form>
