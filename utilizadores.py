@@ -146,8 +146,8 @@ def Adicionar():
         sal = bcrypt.gensalt()
         #hash da palavra
         palavra_hash = bcrypt.hashpw(palavra_passe,sal)
-        sql="INSERT INTO Utilizadores(nome,email,morada,cp,password_hash,perfil) VALUES(?,?,?,?,?,?)"
-        parametros=(nome,email,morada,cp,palavra_hash,perfil)
+        sql="INSERT INTO Utilizadores(nome,email,morada,cp,password_hash,perfil,sal) VALUES(?,?,?,?,?,?,?)"
+        parametros=(nome,email,morada,cp,palavra_hash,perfil,sal)
         basedados.executar_sql(ligacao_bd,sql,parametros)
         return redirect("/Utilizadores/listar")
 
@@ -177,6 +177,15 @@ def Editar():
     parametros=(id,)
     dados=basedados.consultar_sql(ligacao_bd,sql,parametros)
     return render_template("utilizadores/editar.html",utilizador=dados[0])
+
+def EditarPerfil():
+    id=session["id"]
+    print(id)
+    ligacao_bd=basedados.criar_conexao("vetonline.bd")
+    sql="SELECT email,nome,id,morada,cp,data_nasc FROM Utilizadores WHERE id=?"
+    parametros=(id,)
+    dados=basedados.consultar_sql(ligacao_bd,sql,parametros)
+    return render_template("utilizadores/editar_perfil.html",utilizador=dados[0])
 
 #Só para admin
 def EditarConfirmado():

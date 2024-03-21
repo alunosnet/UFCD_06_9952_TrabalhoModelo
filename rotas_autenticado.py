@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session,make_response, jsonify
 from flask_session import Session
 import utilizadores, consultas, animais
-
+import basedados
 
 def setup_auth_routes(app):
     #Rotas para user logado
@@ -32,8 +32,7 @@ def setup_auth_routes(app):
             return redirect("/")
         id=request.form.get("id")
         estado="Confirmada"
-        consultas.alterarestado(id,estado);
-        return redirect("/Consultas/listar")
+        return consultas.alterarestado(id,estado)
 
     @app.route("/Consultas/cancelar",methods=["POST"])
     def ConsultasCancelar():
@@ -41,8 +40,7 @@ def setup_auth_routes(app):
             return redirect("/")
         id=request.form.get("id")
         estado="Cancelada"
-        consultas.alterarestado(id,estado);
-        return redirect("/Consultas/listar")
+        return consultas.alterarestado(id,estado);
     
     @app.route("/Consultas/realizada",methods=["POST"])
     def ConsultasRealizada():
@@ -50,8 +48,7 @@ def setup_auth_routes(app):
             return redirect("/")
         id=request.form.get("id")
         estado="Realizada"
-        consultas.alterarestado(id,estado);
-        return redirect("/Consultas/listar")
+        return consultas.alterarestado(id,estado);
 
 ################################################################ >>>> Animais
     #Rotas para user admin
@@ -90,6 +87,23 @@ def setup_auth_routes(app):
         if utilizadores.Logado()==False or utilizadores.Utilizador_E_Admin()==False:
             return redirect("/")
         return animais.EditarConfirmado(app)
+    
+    @app.route("/Animais/pesquisar",methods=["GET","POST"])
+    def AnimaisPesquisar():
+        if utilizadores.Logado()==False or utilizadores.Utilizador_E_Admin()==False:
+            return redirect("/")
+        if request.method=="GET":
+            return render_template("animais/pesquisar.html",registos=[])
+        else:
+            especie=request.form.get("especie")
+            sql="SELECT * FROM Animais WHERE especie like ?"
+            especie = "%"+especie+"%"
+            ligacao_bd=basedados.criar_conexao("vetonline.bd")
+            parametros=(especie,)
+            dados=basedados.consultar_sql(ligacao_bd,sql,parametros)
+            return render_template("animais/pesquisar.html",registos=dados)
+
+
 ################################################################ >>>> Utilizadores
 
 
@@ -141,7 +155,16 @@ def setup_auth_routes(app):
             return redirect("/")
         return utilizadores.ApagarConfirmado()
 
+    @app.route("/Perfil",methods=["GET"])
     def EditarPerfil():
-        pass
+        if utilizadores.Logado()==False:
+            return redirect("/")
+        return utilizadores.EditarPerfil()
+
+    @app.route("/Utilizadores/perfil_confirmado",methods=["POST"])
+    def PerfilConfirmado():
+        if utilizadores.Logado()==False:
+            return redirect("/")
+        return utilizadores.EditarConfirmado()
 
 

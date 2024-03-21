@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap5.min.css"/>
+<script type="text/javascript" src="/static/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="/static/js/dataTables.min.js"></script>
+<script type="text/javascript" src="/static/js/dataTables.bootstrap5.min.js"></script>
+
+<form action="/Animais/pesquisar" method="post">
+    <div class="form-group row">
+        <label class="form-label" for="especie">Especie:</label>
+        <input class="form-control" type="text" name="especie" placeholder="Especie do animal">
+    </div>
+    <input class="btn btn-lg btn-success" type="submit" value="Pesquisar">
+</form>
+
+<h1>Lista de animais</h1>
+<table id="tabelaAnimais" class="table display">
+    <thead>
+        <tr>
+            <th>Fotografia</th>
+            <th>Nome</th>
+            <th>Especie</th>
+            <th>Raça</th>
+            <th>Idade</th>
+            <th>Dono</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for registo in registos %}
+        <tr>
+            <td><img width="200" src="/static/imagens/{{ registo['id'] }}.jpg"></td>
+            <td>{{ registo["nome"] }}</td>
+            <td>{{ registo["especie"] }}</td>
+            <td>{{ registo["raca"] }}</td>
+            <td>{{ registo["idade"] }}</td>
+            <td>{{ registo["id_utilizador"] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+    //evento onload
+    window.onload=function() {
+        new DataTable('#tabelaAnimais',{
+            searching:false,
+            paging: true,
+           // pageLength: 5,
+            language:{
+                url: "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese.json"
+            }
+        });
+    }
+</script>
+
+{% endblock %}

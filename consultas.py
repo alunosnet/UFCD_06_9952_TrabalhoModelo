@@ -39,3 +39,20 @@ def alterarestado(id,estado):
     dados=(estado,id)
     basedados.executar_sql(ligacao_bd,sql,dados)
     return redirect("/Consultas/listar")
+
+def listarConsultasDia():
+    ligacao_bd=basedados.criar_conexao("vetonline.bd")
+    data_hoje=datetime.datetime.now()
+    data_hoje=data_hoje.strftime("%Y-%m-%d")
+    sql="SELECT * FROM Consultas WHERE data_realizacao=?"
+    parametros=(data_hoje,)
+    dados=basedados.consultar_sql(ligacao_bd,sql,parametros)
+    return dados
+
+def listarMinhasConsultas():
+    ligacao_bd=basedados.criar_conexao("vetonline.bd")
+    id_utilizador=session["id"]
+    sql="SELECT * FROM Consultas WHERE id_utilizador=?"
+    parametros=(id_utilizador,)
+    dados=basedados.consultar_sql(ligacao_bd,sql,parametros)
+    return dados

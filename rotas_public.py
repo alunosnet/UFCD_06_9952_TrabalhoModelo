@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, session,make_respon
 from flask_mail import Mail, Message
 import utilizadores
 import basedados
+import consultas
 
 def setup_public_routes(app,mail):
     @app.route('/aceitar_cookies',methods=['POST'])
@@ -15,7 +16,14 @@ def setup_public_routes(app,mail):
     #Rotas public
     @app.route('/')
     def index():
-        return render_template("index.html")
+        if utilizadores.Logado():
+            if utilizadores.Utilizador_E_Admin():
+                dados=consultas.listarConsultasDia()
+            else:
+                dados=consultas.listarMinhasConsultas()
+        else:
+            dados=[]
+        return render_template("index.html",registos=dados)
 
     @app.route('/Utilizadores/registo',methods=["POST","GET"])
     def Registo():
